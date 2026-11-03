@@ -11,7 +11,7 @@
   color-scheme:light;
   --ground:#D7D7D0;--surface:#F4F4E7;--ink:#1A1614;--ink-2:#3C3834;--muted:#585751;
   --line:#BDBDB5;--line-strong:#8C8C84;--accent:#1E3B2E;--accent-fg:#FFFFFF;--accent-soft:rgba(30,59,46,.08);
-  --warn:#7A4E0F;--warn-soft:rgba(122,78,15,.10);
+  --warm:#7A4E0F;--warm-soft:rgba(122,78,15,.10);--warn:var(--warm);--warn-soft:var(--warm-soft);
   --serif:"Noto Serif",Georgia,"Times New Roman",serif;
   --sans:"Geist",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
   --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -20,7 +20,7 @@
   color-scheme:dark;
   --ground:#1A1614;--surface:#2B2622;--ink:#F4F4E7;--ink-2:#CECCC0;--muted:#9A968C;
   --line:#3A342E;--line-strong:#7A7369;--accent:#759B72;--accent-fg:#1A1614;--accent-soft:rgba(117,155,114,.16);
-  --warn:#E0B36A;--warn-soft:rgba(224,179,106,.14);
+  --warm:#E0B36A;--warm-soft:rgba(224,179,106,.14);--warn:var(--warm);--warn-soft:var(--warm-soft);
 }}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -29,23 +29,36 @@ a{color:inherit}
 a:focus-visible,button:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
 .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
 
-.notice{background:var(--ink);color:var(--ground);font-size:14px;line-height:1.45}
-.notice .wrap{padding-top:12px;padding-bottom:12px}
+.notice{background:var(--ink);color:var(--ground);font-size:13px;line-height:1.45}
+.notice .wrap{padding-top:10px;padding-bottom:10px}
 .notice strong{font-weight:600}
 
-header.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 0}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0}
 .logo{font-weight:700;letter-spacing:.16em;font-size:14px;text-decoration:none}
 .logo span{font-weight:500;letter-spacing:.04em;color:var(--muted);margin-left:8px}
 nav.top a{font-size:14px;color:var(--ink-2);margin-left:20px;text-decoration:none}
 nav.top a:hover{text-decoration:underline}
 
-.hero{padding:48px 0 40px}
+.hero{padding:54px 0 48px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(250px,.75fr);gap:36px;align-items:end}
+@media (max-width:720px){.hero{grid-template-columns:1fr;gap:28px;padding-top:38px}}
 .eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 20px}
-h1{font:400 clamp(36px,6vw,58px)/1.08 var(--serif);letter-spacing:-.01em;margin:0 0 20px;max-width:20ch}
+h1{font:400 clamp(39px,6vw,62px)/1.04 var(--serif);letter-spacing:-.025em;margin:0 0 20px;max-width:16ch}
 .lede{font-size:18px;color:var(--ink-2);max-width:56ch;margin:0}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.button{display:inline-flex;align-items:center;justify-content:center;font:600 14px/1 var(--sans);padding:14px 18px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-fg);text-decoration:none;cursor:pointer}
+.button:hover{filter:brightness(.96)}
+.button.secondary{background:transparent;color:var(--ink);border-color:var(--line-strong)}
+.hero-aside{border-left:1px solid var(--line-strong);padding:4px 0 4px 24px}
+@media (max-width:720px){.hero-aside{border-left:0;border-top:1px solid var(--line-strong);padding:22px 0 0}}
+.hero-aside h2{font:400 25px/1.18 var(--serif);margin:0 0 14px;max-width:17ch}
+.hero-points{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+.hero-points li{display:flex;gap:10px;color:var(--ink-2);font-size:14px;line-height:1.4}
+.hero-points b{font:500 12px/1.35 var(--mono);color:var(--accent);min-width:20px}
 
-.demo{display:grid;grid-template-columns:280px 1fr;gap:24px;padding:24px 0 64px}
+.demo{display:grid;grid-template-columns:280px 1fr;gap:24px;padding:14px 0 72px}
 @media (max-width:820px){.demo{grid-template-columns:1fr}}
+
+.flow-sidebar{padding-top:8px}.flow-sidebar h2{font:400 30px/1.14 var(--serif);letter-spacing:-.015em;margin:0 0 12px;max-width:9ch}.flow-copy{font-size:14px;color:var(--ink-2);margin:0 0 20px;max-width:28ch}.flow-sidebar .eyebrow{margin-bottom:12px}
 
 ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
 @media (max-width:820px){ol.steps{flex-direction:row;overflow-x:auto;padding-bottom:4px}}
@@ -60,6 +73,8 @@ ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;g
 
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;min-width:0}
 .panel-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted)}
+.panel-context{display:flex;align-items:center;gap:10px;min-width:0}.panel-context strong{color:var(--ink);font-weight:600}.progress{font:500 11px/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.panel-meta{display:flex;align-items:center;gap:10px}
 .sample{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:6px 8px;border-radius:6px;background:var(--warn-soft);color:var(--warn);white-space:nowrap}
 .panel-body{padding:24px 20px}
 .view[hidden]{display:none}
@@ -89,6 +104,7 @@ table.est td:first-child,table.est th:first-child{padding-left:10px}
 .fake-btn{font:500 13px/1 var(--sans);padding:9px 12px;border-radius:8px;border:1px solid var(--line-strong);color:var(--ink-2);background:transparent}
 .fake-btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
 .note{font-size:13px;color:var(--muted);margin-top:12px}
+.control-note{display:flex;gap:8px;align-items:flex-start;margin-top:16px;padding:12px 14px;background:var(--accent-soft);border-radius:8px;color:var(--ink-2);font-size:13px}.control-note strong{color:var(--accent);font:500 11px/1.4 var(--mono);letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
 
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
 @media (max-width:560px){.stats{grid-template-columns:1fr}}
@@ -101,7 +117,7 @@ table.est td:first-child,table.est th:first-child{padding-left:10px}
 .nav-btn.primary{background:var(--ink);border-color:var(--ink);color:var(--ground)}
 .nav-btn:disabled{opacity:.4;cursor:default}
 
-section.info{border-top:1px solid var(--line-strong);padding:56px 0}
+section.info{border-top:1px solid var(--line-strong);padding:64px 0}
 .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
 @media (max-width:820px){.info-grid{grid-template-columns:1fr}}
 .info h2{font:400 28px/1.2 var(--serif);margin:0 0 16px}
@@ -110,6 +126,8 @@ section.info{border-top:1px solid var(--line-strong);padding:56px 0}
 .price{font:400 44px/1 var(--serif);margin:0 0 4px}
 .price small{font:400 16px var(--sans);color:var(--muted)}
 .terms{color:var(--ink-2);margin:12px 0 24px}
+.pilot-flow{list-style:none;margin:22px 0 26px;padding:0;border-top:1px solid var(--line)}
+.pilot-flow li{display:grid;grid-template-columns:28px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink-2)}.pilot-flow b{font:500 11px/1.45 var(--mono);letter-spacing:.05em;color:var(--accent)}.pilot-flow strong{color:var(--ink);font-weight:600}
 .cta{display:inline-block;font-weight:600;text-decoration:none;padding:14px 20px;border-radius:8px;background:var(--accent);color:var(--accent-fg)}
 .cta-sub{font-size:14px;color:var(--muted);margin-top:12px}
 
@@ -137,31 +155,52 @@ footer.site{border-top:1px solid var(--line-strong);padding:24px 0 48px;font-siz
     </nav>
   </header>
 
+  <main>
   <section class="hero">
-    <p class="eyebrow">Concept demo</p>
-    <h1>Open estimates get a second look.</h1>
-    <p class="lede">Estimates often go quiet because nobody had time to follow up. MODUS Convert is a workflow we are building to follow up on them, stop when the customer replies, and show which follow-ups turned into booked work.</p>
+    <div>
+      <p class="eyebrow">Product preview &middot; for service businesses</p>
+      <h1>Turn more open estimates into booked work.</h1>
+      <p class="lede">When a follow-up gets buried, a good estimate can go quiet. MODUS Convert is a workflow we are building to follow up at the right moment, stop when the customer replies, and show what led to a booking.</p>
+      <div class="hero-actions">
+        <button class="button" type="button" data-start-demo>See the 60-second walkthrough</button>
+        <a class="button secondary" href="#pilot">See pilot terms</a>
+      </div>
+    </div>
+    <aside class="hero-aside" aria-label="How the workflow stays in your control">
+      <p class="eyebrow">Designed to stay in your control</p>
+      <h2>Your estimate process stays yours.</h2>
+      <ul class="hero-points">
+        <li><b>01</b><span>Keep sending estimates from the tool you already use.</span></li>
+        <li><b>02</b><span>Choose the wait time, wording and whether you approve each follow-up.</span></li>
+        <li><b>03</b><span>When a customer replies, the follow-up stops and you take over.</span></li>
+      </ul>
+    </aside>
   </section>
 
   <section class="demo" aria-label="Walkthrough">
-    <ol class="steps" role="list">
-      <li><button class="step-btn" type="button" data-step="0" aria-current="step"><span class="step-num">01</span><span><span class="step-title">Estimate goes out</span><span class="step-sub">Picked up from your quoting tool</span></span></button></li>
-      <li><button class="step-btn" type="button" data-step="1"><span class="step-num">02</span><span><span class="step-title">It goes quiet</span><span class="step-sub">A follow-up is queued for you</span></span></button></li>
-      <li><button class="step-btn" type="button" data-step="2"><span class="step-num">03</span><span><span class="step-title">Customer replies</span><span class="step-sub">Follow-ups stop, you take over</span></span></button></li>
-      <li><button class="step-btn" type="button" data-step="3"><span class="step-num">04</span><span><span class="step-title">Work is booked</span><span class="step-sub">The result is attributed</span></span></button></li>
-    </ol>
+    <div class="flow-sidebar">
+      <p class="eyebrow">One estimate, four moments</p>
+      <h2>See the whole follow-up loop.</h2>
+      <p class="flow-copy">Walk through a fictional electrical estimate. Every name, amount and result is sample data.</p>
+      <ol class="steps" role="list">
+        <li><button class="step-btn" type="button" data-step="0" aria-current="step"><span class="step-num">01</span><span><span class="step-title">Estimate goes out</span><span class="step-sub">Picked up from your quoting tool</span></span></button></li>
+        <li><button class="step-btn" type="button" data-step="1"><span class="step-num">02</span><span><span class="step-title">It goes quiet</span><span class="step-sub">A follow-up is queued for you</span></span></button></li>
+        <li><button class="step-btn" type="button" data-step="2"><span class="step-num">03</span><span><span class="step-title">Customer replies</span><span class="step-sub">Follow-ups stop, you take over</span></span></button></li>
+        <li><button class="step-btn" type="button" data-step="3"><span class="step-num">04</span><span><span class="step-title">Work is booked</span><span class="step-sub">The result is attributed</span></span></button></li>
+      </ol>
+    </div>
 
-    <div class="panel">
+    <div class="panel" id="walkthrough" tabindex="-1">
       <div class="panel-bar">
-        <span>Harbor Line Electric &middot; Estimates</span>
-        <span class="sample">Sample data</span>
+        <span class="panel-context"><strong>Harbor Line Electric</strong><span>&middot; Estimates</span></span>
+        <span class="panel-meta"><span class="progress" id="progress">Step 1 of 4</span><span class="sample">Sample data</span></span>
       </div>
 
       <div class="panel-body" aria-live="polite">
 
         <div class="view" data-view="0">
           <h2>An estimate goes out</h2>
-          <p class="explain">In the concept, MODUS reads new estimates from the quoting tool you already use. Nothing changes in how you send them.</p>
+          <p class="explain">In this concept, MODUS picks up new estimates from the quoting tool you already use. Nothing changes in how you send them.</p>
           <div class="est-scroll">
             <table class="est">
               <thead><tr><th>Estimate</th><th>Customer</th><th>Job</th><th>Amount</th><th>Status</th></tr></thead>
@@ -176,7 +215,7 @@ footer.site{border-top:1px solid var(--line-strong);padding:24px 0 48px;font-siz
 
         <div class="view" data-view="1" hidden>
           <h2>No reply after three days</h2>
-          <p class="explain">MODUS queues a short, plain follow-up in your name. You decide whether follow-ups send automatically or wait for your approval.</p>
+          <p class="explain">MODUS queues a short, plain follow-up in your name. You decide whether it sends automatically or waits for your approval.</p>
           <div class="est-scroll">
             <table class="est">
               <thead><tr><th>Estimate</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead>
@@ -195,11 +234,12 @@ footer.site{border-top:1px solid var(--line-strong);padding:24px 0 48px;font-siz
           <div class="actions" aria-hidden="true">
             <span class="fake-btn primary">Approve</span><span class="fake-btn">Edit</span><span class="fake-btn">Skip</span>
           </div>
+          <div class="control-note"><strong>Your choice</strong><span>Set the delay, follow-up wording and approval rule once for your business.</span></div>
           <p class="note">Preview only. This demo does not send any messages.</p>
         </div>
 
         <div class="view" data-view="2" hidden>
-          <h2>The customer replies</h2>
+          <h2>A reply stops the follow-up</h2>
           <p class="explain">As soon as a reply comes in, further follow-ups for that estimate stop and the conversation is handed back to you.</p>
           <div class="msg reply">
             <div class="msg-meta"><span>From: R. Alvarez</span><span>Thursday 11:42</span></div>
@@ -217,7 +257,7 @@ footer.site{border-top:1px solid var(--line-strong);padding:24px 0 48px;font-siz
 
         <div class="view" data-view="3" hidden>
           <h2>The job is booked, and you can see why</h2>
-          <p class="explain">When the estimate is accepted, MODUS records that it was won after a follow-up. Over time you see which follow-ups lead to booked work.</p>
+          <p class="explain">When an estimate is accepted, MODUS records that it was won after a follow-up. Over time, you can see which follow-ups lead to booked work.</p>
           <div class="est-scroll">
             <table class="est">
               <thead><tr><th>Estimate</th><th>Customer</th><th>Amount</th><th>Status</th></tr></thead>
@@ -239,7 +279,7 @@ footer.site{border-top:1px solid var(--line-strong);padding:24px 0 48px;font-siz
 
       <div class="panel-nav">
         <button class="nav-btn" type="button" id="prev" disabled>Back</button>
-        <button class="nav-btn primary" type="button" id="next">Next step</button>
+        <button class="nav-btn primary" type="button" id="next">See the follow-up</button>
       </div>
     </div>
   </section>
@@ -247,9 +287,9 @@ footer.site{border-top:1px solid var(--line-strong);padding:24px 0 48px;font-siz
   <section class="info" id="pilot">
     <div class="info-grid">
       <div>
-        <h2>What this is, and what it isn't</h2>
+        <h2>What you are looking at</h2>
         <ul>
-          <li>A concept of a workflow we are building. The production software is not live yet.</li>
+          <li>An interactive preview of a workflow we are building. The production software is not live yet.</li>
           <li>Everything on this page is sample data for a fictional business.</li>
           <li>No integrations, customer data or messages are involved in this demo.</li>
           <li>We are looking for a small number of service businesses to shape the pilot with us.</li>
@@ -259,9 +299,14 @@ footer.site{border-top:1px solid var(--line-strong);padding:24px 0 48px;font-siz
         <h2>Founding pilot</h2>
         <p class="price">$99 <small>/ month in the US</small></p>
         <p class="price">&pound;99 <small>/ month in the UK</small></p>
-        <p class="terms">Plus applicable tax, and only once MODUS is connected and running for your business. No payment or card while we build. No AI, SMS or hosting usage charges. The founding price stays the same while you keep the service.</p>
-        <a class="cta" href="mailto:contact@withmodus.co?subject=MODUS%20founding%20pilot">Ask about the pilot</a>
-        <p class="cta-sub">Or reply to the email you received. A 15-minute call is enough to see if it fits.</p>
+        <p class="terms">Plus applicable tax, and only once MODUS is connected and running for your business. No card or payment while we build. No AI, SMS or hosting usage charges. The founding price stays the same while you keep the service.</p>
+        <ol class="pilot-flow">
+          <li><b>01</b><span><strong>Fit check</strong><br>A 15-minute call to see whether your estimate flow is a match.</span></li>
+          <li><b>02</b><span><strong>Shape the workflow</strong><br>We map the timing, wording and hand-off that works for your business.</span></li>
+          <li><b>03</b><span><strong>Start when it is working</strong><br>Payment begins only once it is connected and running for your business.</span></li>
+        </ol>
+        <a class="cta" href="mailto:contact@withmodus.co?subject=MODUS%20founding%20pilot">See if your workflow fits</a>
+        <p class="cta-sub">Or reply to the email you received.</p>
       </div>
     </div>
   </section>
@@ -271,6 +316,7 @@ footer.site{border-top:1px solid var(--line-strong);padding:24px 0 48px;font-siz
     <a href="/privacy">Privacy notice</a>
     <a href="mailto:contact@withmodus.co">contact@withmodus.co</a>
   </footer>
+  </main>
 </div>
 
 <script>
@@ -279,8 +325,12 @@ footer.site{border-top:1px solid var(--line-strong);padding:24px 0 48px;font-siz
   var views = Array.prototype.slice.call(document.querySelectorAll('.view'));
   var prev = document.getElementById('prev');
   var next = document.getElementById('next');
+  var progress = document.getElementById('progress');
+  var startDemo = document.querySelector('[data-start-demo]');
+  var panel = document.getElementById('walkthrough');
   var last = views.length - 1;
   var current = 0;
+  var nextLabels = ['See the follow-up', 'See the reply', 'See booked work', 'Start again'];
 
   function show(i) {
     current = Math.max(0, Math.min(last, i));
@@ -295,7 +345,8 @@ footer.site{border-top:1px solid var(--line-strong);padding:24px 0 48px;font-siz
       list.scrollTo({ left: item.offsetLeft - list.offsetLeft, behavior: 'smooth' });
     }
     prev.disabled = current === 0;
-    next.textContent = current === last ? 'Start over' : 'Next step';
+    progress.textContent = 'Step ' + (current + 1) + ' of ' + (last + 1);
+    next.textContent = nextLabels[current];
   }
 
   buttons.forEach(function (b) {
@@ -303,6 +354,11 @@ footer.site{border-top:1px solid var(--line-strong);padding:24px 0 48px;font-siz
   });
   prev.addEventListener('click', function () { show(current - 1); });
   next.addEventListener('click', function () { show(current === last ? 0 : current + 1); });
+  startDemo.addEventListener('click', function () {
+    show(0);
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    panel.focus({ preventScroll: true });
+  });
   show(0);
 })();
 </script>
